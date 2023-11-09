@@ -45,18 +45,22 @@ void
 switch_interrupt_handler2()
 {
   if(P2IFG & TSW1){
-    buzzer_set_period(1000);
+    //buzzer_set_period(1000);
+    P2IFG &= ~TSW1;
   }
   if(P2IFG & TSW2){
-    buzzer_set_period(1500);
+    //buzzer_set_period(1500);
+    P2IFG &= ~TSW2;
   }
   if(P2IFG & TSW3){
-    buzzer_set_period(2000);
+    //buzzer_set_period(2000);
+    P2IFG &= ~TSW3;
   }
   if(P2IFG & TSW4){
-    buzzer_set_period(0);
+    //buzzer_set_period(0);
+  P2IFG &= ~TSW4;
   }
-  P2IFG &= 0;
+  //P2IFG &= 0;
   // P1OUT ^= LED_RED;
 }
 

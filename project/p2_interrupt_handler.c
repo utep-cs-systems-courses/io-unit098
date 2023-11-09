@@ -6,9 +6,10 @@
 void
 __interrupt_vec(PORT2_VECTOR) Port_2(){
   if (P2IFG & TSWITCHES) {
-    P1OUT ^= LED_RED; /* did a button cause this interrupt? */
+    P1OUT ^= LED_GREEN; /* did a button cause this interrupt? */
     switch_interrupt_handler2();	/* single handler for all switches */
     //buzzer_set_period(1000);
+    P2IN &= ~TSWITCHES;
   }
 }
 
