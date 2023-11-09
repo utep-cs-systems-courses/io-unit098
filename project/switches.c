@@ -57,7 +57,7 @@ switch_interrupt_handler2()
     buzzer_set_period(0);
   }
   P2IFG &= 0;
-  P1OUT ^= LED_RED;
+  // P1OUT ^= LED_RED;
 }
 
 
