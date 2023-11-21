@@ -12,6 +12,8 @@
 void switch_init();
 void switch_interrupt_handler();
 void switch_interrupt_handler2();
+void setoff(int a);
+void setper(int a);
 
 extern char switch_state_down, switch_state_changed; /* effectively boolean */
 

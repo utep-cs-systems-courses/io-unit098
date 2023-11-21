@@ -3,6 +3,7 @@
 #include "switches.h"
 #include "led.h"
 #include "buzzer.h"
+#include "wdt.h"
 
 char switch_state_down, switch_state_changed; /* effectively boolean */
 
@@ -14,6 +15,15 @@ switch_update_interrupt_sense()
    P1IES |= (p1val & SWITCHES);	/* if switch up, sense down */
    P1IES &= (p1val | ~SWITCHES);	/* if switch down, sense up */
   return p1val;
+}
+static char 
+switch_update_interrupt_sense2()
+{
+  char p2val = P2IN;
+  /* update switch interrupt to detect changes from current buttons */
+   // P2IES |= (p2val & TSWITCHES);	/* if switch up, sense down */
+   // P2IES &= (p2val | ~TSWITCHES);	/* if switch down, sense up */
+  return p2val;
 }
 
 void 
@@ -45,7 +55,7 @@ void
 switch_interrupt_handler2()
 {
   if(P2IFG & TSW1){
-    //buzzer_set_period(1000);
+    setper(0);
     P2IFG &= ~TSW1;
   }
   if(P2IFG & TSW2){
@@ -53,12 +63,18 @@ switch_interrupt_handler2()
     P2IFG &= ~TSW2;
   }
   if(P2IFG & TSW3){
-    //buzzer_set_period(2000);
     P2IFG &= ~TSW3;
+    char sw3val = switch_update_interrupt_sense2();
+    // setoff(1);
+    setoff((sw3val & TSW3)? 0:10);
+    P2IES ^= TSW3;
   }
   if(P2IFG & TSW4){
-    //buzzer_set_period(0);
   P2IFG &= ~TSW4;
+  char sw4val = switch_update_interrupt_sense2();
+  //setoff(-1);
+  setoff((sw4val & TSW4)? 0:-10);
+  P2IES ^= TSW4;
   }
   //P2IFG &= 0;
   // P1OUT ^= LED_RED;

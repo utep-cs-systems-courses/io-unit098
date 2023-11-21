@@ -1,0 +1,6 @@
+#ifnddef wdt_included
+#define wdt_included
+
+#define OFFSET 0
+
+#endif // included
