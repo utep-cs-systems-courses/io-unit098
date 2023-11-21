@@ -20,9 +20,9 @@ void main(void)
   or_sr(0x18);  // CPU off, GIE on
 } 
 
-void setoff(int a){
-  OFFSET=a;
-}
+//void setoff(int a){
+  //OFFSET=a;
+  //}
 void setper(int a){
   if(period = 0){}else{
   oldperiod = period;
