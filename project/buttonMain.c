@@ -35,7 +35,7 @@ __interrupt_vec(WDT_VECTOR) WDT(){
   if(sec == 25){
     if (period == 0){
       if(OFFSET!=0){
-	period = oldperiod;
+	period = 1950;
       }
     }
     else if(period > 2050){
